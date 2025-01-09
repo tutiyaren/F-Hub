@@ -35,10 +35,10 @@ pgAdmin：4.8.14
 
 ### クローンして環境構築する手順
 
-1.リポジトリのクローンとサービス起動
+1.リポジトリのクローンとDBサービス起動
 
 ```
-git clone git@github.com:ENGEI-Dev-Team/office-booking-app.git
+git clone git@github.com:tutiyaren/F-Hub.git
 ```
 
 必要であれば`mv`でディレクトリ名を変える  
@@ -46,44 +46,11 @@ git clone git@github.com:ENGEI-Dev-Team/office-booking-app.git
 docker で必要なサービスを起動
 
 ```
-cd laravel
-make up
-```
-
-2.プロジェクトの設定
-はじめに、composer コマンドを用いて必要なパッケージをインストールします。
-
-```
-make bash
-cd api
-composer install
-exit
-```
-
-次に、.env ファイルを編集して必要な設定をするために、.env.example をコピーして.env ファイルを作成と編集する
-
-```
-cd src/api
-cp .env.example .env
-```
-
-slack の dev-team チャンネルにピン止めしてある.env を参考に DB=の設定を行ってください  
-その後、下記コマンドで、Laravel のアプリケーションキー生成する
-
-```
-cd ../../
-make bash
-cd api
-php artisan key:generate
+cd spring/fhub-feeling
+docker compose up -d --build
 ```
 
 ### 結果.ブラウザで確認
 
 - [Laravel ウェルカムページ](http://localhost:8081) にアクセスし、問題なく表示されれば OK です。
-- [pgAdmin](http://localhost:8080) にアクセスし、問題なく表示されれば OK です。  
-  最後に、PHP コンテナ上で postgreSQL とのデータ接続を確認します。  
-  下記コマンドを入力し、エラー文がでなければ OK です
-
-```
-php artisan migrate
-```
+- [pgAdmin](http://localhost:8081) にアクセスし、``docker-compose.yml``のpasswordを入力し問題なく表示されれば OK です。  
