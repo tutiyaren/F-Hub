@@ -6,7 +6,7 @@
 # Spring Boot 
 ## 使用技術
 
-Java：23  
+Java：21  
 Spring Boot：3.4.1
 Spring Boot DevTools  
 Lombok  

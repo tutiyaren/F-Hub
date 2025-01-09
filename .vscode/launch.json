@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-FhubFeelingApplication<fhub-feeling>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "jp.fhub.fhub_feeling.FhubFeelingApplication",
+            "projectName": "fhub-feeling",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

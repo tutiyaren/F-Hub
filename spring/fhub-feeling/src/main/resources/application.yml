@@ -1,1 +1,46 @@
-spring.application.name=fhub-feeling
+spring:
+    application:
+        name: fhub-feeling
+    datasource:
+        url: jdbc:postgresql://localhost:5432/fhub_db?useSSL=false&serverTimezone=UTC
+        username: fhub_user
+        password: ${POSTGRES_PASSWORD:fhub_pass}
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+            # 本番環境で以下を使用することを推奨:
+            # ddl-auto: validate
+        properties:
+            hibernate:
+            dialect: org.hibernate.dialect.PostgreSQLDialect
+    devtools:
+        restart:
+            enabled: true
+            exclude: '**/static/**,**/public/**,**/resources/**'
+        livereload:
+            enabled: true
+        add-properties: false
+    flyway:
+        locations: classpath:db/migration
+        url: jdbc:postgresql://localhost:5432/fhub_db?useSSL=false&serverTimezone=UTC
+        user: fhub_user
+        password: ${POSTGRES_PASSWORD:fhub_pass}
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: health, info, metrics
+
+logging:
+    file:
+        name: logs/application.log
+    level:
+        root: INFO
+        '[org.springframeworl.web]' : DEBUG
+    pattern:
+        console: '%d{yyyy-MM-dd HH:mm:ss} - %msg%n'
+
+server:
+    port: 8080
