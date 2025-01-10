@@ -1,0 +1,32 @@
+services:
+    postgresql:
+        image: postgres:17.2
+        ports:
+            - "5432:5432"
+        restart: always
+        environment:
+            POSTGRES_DB: fhub_db
+            POSTGRES_USER: fhub_user
+            POSTGRES_PASSWORD: fhub_pass
+        volumes:
+            - ./docker/postgresql.conf:/etc/postgresql/postgresql.conf
+            - postgresql-data:/var/lib/postgresql/data
+    
+    pgadmin:
+        image: dpage/pgadmin4:8.14
+        ports:
+            - 8081:80
+        environment:
+            PGADMIN_DEFAULT_EMAIL: fhub@example.com
+            PGADMIN_DEFAULT_PASSWORD: fhub_pass
+            PGADMIN_CONFIG_SERVER_MODE: "False"
+            PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+        depends_on:
+            - postgresql
+        volumes:
+            - pgadmin-data:/var/lib/pgadmin
+            - ./config/servers.json:/pgadmin4/servers.json
+
+volumes:
+    postgresql-data:
+    pgadmin-data:
