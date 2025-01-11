@@ -9,3 +9,11 @@ CREATE TABLE hospitals (
     created_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
     updated_at TIMESTAMP NOT NULL DEFAULT current_timestamp
 );
+
+INSERT INTO hospitals (name, postal_code, address, phone_number) VALUES
+    (
+        'テスト病院',
+        '0000000',
+        '東京都中央区日本橋1-1○○○○○○○○○○○階',
+        '0001234567'
+    );
