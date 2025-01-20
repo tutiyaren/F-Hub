@@ -39,3 +39,7 @@ out/
 # ログファイルを無視
 logs/
 *.log
+
+# Add the .env file to the ignore list
+.env
+

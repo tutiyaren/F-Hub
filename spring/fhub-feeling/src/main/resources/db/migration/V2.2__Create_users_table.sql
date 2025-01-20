@@ -15,28 +15,28 @@ CREATE TABLE users (
 
 INSERT INTO users (role_id, first_name, last_name, email, password) VALUES
     (
-        'd01ce731-480d-4b35-bb83-7680828c8da6', 
+        '61671c1f-73e6-4000-a04f-666ef023c666', 
         'システム', 
         '管理者', 
         'system@example.com', 
         crypt('System123', gen_salt('bf'))
     ),
     (
-        '621566a9-2d15-4776-910f-c176696ab83c', 
+        '7dcf748b-1db6-4869-ad8c-297c219e57e6', 
         '病院', 
         '管理者', 
         'hospital@example.com', 
         crypt('Hospital123', gen_salt('bf'))
     ),
     (
-        'b7ca4e4a-1c00-4ef7-922c-da4d6c3a55ec', 
+        '5fc0db6e-f9d5-4f5b-8a67-56da6c7a7506', 
         'aaa', 
         'ユーザー', 
         'aaa@example.com', 
         crypt('Aaaaaaa1', gen_salt('bf'))
     ),
     (
-        'b7ca4e4a-1c00-4ef7-922c-da4d6c3a55ec', 
+        '5fc0db6e-f9d5-4f5b-8a67-56da6c7a7506', 
         'bbb', 
         'ユーザー', 
         'bbb@example.com', 

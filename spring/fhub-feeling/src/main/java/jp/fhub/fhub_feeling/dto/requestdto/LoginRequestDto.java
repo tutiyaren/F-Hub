@@ -1,11 +1,11 @@
-package jp.fhub.fhub_feeling.dto.requestDto;
+package jp.fhub.fhub_feeling.dto.requestdto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UserRequestDto {
+public class LoginRequestDto {
     private String email;
     private String password;
 }

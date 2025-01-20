@@ -26,7 +26,7 @@ spring:
         url: jdbc:postgresql://localhost:5432/fhub_db?useSSL=false&serverTimezone=UTC
         user: fhub_user
         password: ${POSTGRES_PASSWORD:fhub_pass}
-
+   
 management:
     endpoints:
         web:
