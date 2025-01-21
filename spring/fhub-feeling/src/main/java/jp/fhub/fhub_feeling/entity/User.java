@@ -1,5 +1,6 @@
 package jp.fhub.fhub_feeling.entity;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,25 +25,34 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User implements UserDetails {
+    @Version
+    private Long version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
+    @Column(length = 36, nullable = false)
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(name = "first_name", length = 100, nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(name = "last_name", length = 100, nullable = false)
     private String lastName;
 
-    @Column(nullable = false, unique = true)
+    @Column(length = 255, unique = true, nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(length = 255, nullable = false)
     private String password;
 
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
     public List<String> getRoles() {
