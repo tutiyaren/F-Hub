@@ -18,35 +18,50 @@ import lombok.Getter;
 public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+   
+    // 422
+    @ExceptionHandler(BindException.class)
+    public ResponseEntity<ErrorResponse> handleBindException(BindException ex) {
+        logger.error("リクエストが無効です。入力内容をご確認ください。: ", ex);
+        return createErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, "リクエストが無効です。入力内容をご確認ください。");
+    }
 
+    // 会員登録
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
+        logger.error("会員登録エラー: {}", ex.getMessage());
+        return createErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage());
+    }
+
+    // 権限
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException ex) {
+        logger.error("権限エラー: {}", ex.getMessage());
+        return createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
+    }
+
+    // ログイン
     @ExceptionHandler(LoginException.class)
     public ResponseEntity<ErrorResponse> handleLoginException(LoginException ex) {
         logger.error("ログインエラー: {}", ex.getMessage());
         return createErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage());
     }
 
+    // 401
     @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleAuthenticationException(AuthenticationCredentialsNotFoundException ex) {
         logger.error("認証に失敗しました。再度ログインしてください。: ", ex);
         return createErrorResponse(HttpStatus.UNAUTHORIZED, "認証に失敗しました。再度ログインしてください。");
     }
 
+    // 403
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<ErrorResponse> handleAccessDenied(ResponseStatusException ex) {
-        if (ex.getStatusCode() == HttpStatus.FORBIDDEN) {
-            logger.error("このページにアクセスできません。詳細は管理者にお問い合わせください。: ", ex);
-            return createErrorResponse(HttpStatus.FORBIDDEN, "このページにアクセスできません。詳細は管理者にお問い合わせください。");
-        }
-        logger.error("お探しのページが見つかりません。URLが正しいかご確認ください。: ", ex);
-        return createErrorResponse(HttpStatus.NOT_FOUND, "お探しのページが見つかりません。URLが正しいかご確認ください。");
+        logger.error("このページにアクセスできません。詳細は管理者にお問い合わせください。: ", ex);
+        return createErrorResponse(HttpStatus.FORBIDDEN, "このページにアクセスできません。詳細は管理者にお問い合わせください。");
     }
 
-    @ExceptionHandler(BindException.class)
-    public ResponseEntity<ErrorResponse> handleValidationException(BindException ex) {
-        logger.error("リクエストが無効です。入力内容をご確認ください。: ", ex);
-        return createErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, "リクエストが無効です。入力内容をご確認ください。");
-    }
-
+    // 500系
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
         if (ex instanceof IllegalStateException) {
