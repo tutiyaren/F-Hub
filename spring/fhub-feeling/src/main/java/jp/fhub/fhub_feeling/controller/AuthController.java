@@ -11,8 +11,6 @@ import jp.fhub.fhub_feeling.service.JwtBlacklistService;
 import jp.fhub.fhub_feeling.service.UserService;
 import jp.fhub.fhub_feeling.service.ValidationService;
 import jp.fhub.fhub_feeling.util.JwtUtil;
-
-import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -71,23 +69,8 @@ public class AuthController {
     
     @PostMapping("/refresh")
     public ResponseEntity<RefreshResponseDto> refresh(HttpServletRequest request) {
-        String authHeader = request.getHeader(AuthConstants.AUTH_HEADER);
-
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.badRequest().body(new RefreshResponseDto("アクセストークンが含まれていません"));
-        }
-        String accessToken = authHeader.substring(7);
-
-        try {
-            String email = jwtUtil.validateTokenAndRetrieveSubject(accessToken);
-            List<String> roles = jwtUtil.extractRoles(accessToken);
-            String newRefreshToken = jwtUtil.generateRefreshToken(email, roles);
-            return ResponseEntity.status(HttpStatus.CREATED).body(new RefreshResponseDto(newRefreshToken));
-
-        } catch (JWTVerificationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new RefreshResponseDto("リフレッシュトークンが無効です"));
-        }
+        RefreshResponseDto refreshResponse = userService.refreshUser(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(refreshResponse);
     }
     
     @PostMapping("/logout")

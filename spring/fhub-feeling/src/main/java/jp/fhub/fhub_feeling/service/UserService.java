@@ -5,14 +5,18 @@ import jp.fhub.fhub_feeling.dto.requestdto.LoginRequestDto;
 import jp.fhub.fhub_feeling.dto.requestdto.RegisterRequestDto;
 import jp.fhub.fhub_feeling.dto.responsedto.LoginResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.MeResponseDto;
+import jp.fhub.fhub_feeling.dto.responsedto.RefreshResponseDto;
 import jp.fhub.fhub_feeling.entity.Role;
 import jp.fhub.fhub_feeling.entity.User;
 import jp.fhub.fhub_feeling.repository.UserRepository;
 import jp.fhub.fhub_feeling.util.JwtUtil;
 import jp.fhub.fhub_feeling.exception.customexception.auth.LoginException;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.auth0.jwt.exceptions.JWTVerificationException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -90,5 +94,24 @@ public class UserService {
             user.getLastName(),
             user.getEmail(),
             user.getRole().getName());
+    }
+
+    public RefreshResponseDto refreshUser(HttpServletRequest request) {
+        String authHeader = request.getHeader(AuthConstants.AUTH_HEADER);
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("トークンは無効です。再ログインしてください。");
+        }
+        String accessToken = authHeader.substring(7);
+
+        try {
+            String email = jwtUtil.validateTokenAndRetrieveSubject(accessToken);
+            List<String> roles = jwtUtil.extractRoles(accessToken);
+            String newRefreshToken = jwtUtil.generateRefreshToken(email, roles);
+            return new RefreshResponseDto(newRefreshToken);
+
+        } catch (JWTVerificationException e) {
+            return new RefreshResponseDto("リフレッシュトークンが無効です。再ログインしてください。");
+        }
     }
 }
