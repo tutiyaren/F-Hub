@@ -1,17 +1,20 @@
 package jp.fhub.fhub_feeling.service;
 
+import jp.fhub.fhub_feeling.constant.AuthConstants;
 import jp.fhub.fhub_feeling.dto.requestdto.LoginRequestDto;
 import jp.fhub.fhub_feeling.dto.requestdto.RegisterRequestDto;
 import jp.fhub.fhub_feeling.dto.responsedto.LoginResponseDto;
+import jp.fhub.fhub_feeling.dto.responsedto.MeResponseDto;
 import jp.fhub.fhub_feeling.entity.Role;
 import jp.fhub.fhub_feeling.entity.User;
 import jp.fhub.fhub_feeling.repository.UserRepository;
 import jp.fhub.fhub_feeling.util.JwtUtil;
 import jp.fhub.fhub_feeling.exception.customexception.auth.LoginException;
 import java.time.LocalDateTime;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class UserService {
@@ -21,13 +24,22 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final ValidationService validationService;
+    private final JwtBlacklistService jwtBlacklistService;
 
-    public UserService(UserRepository userRepository, RoleService roleService, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, ValidationService validationService) {
+    public UserService(
+        UserRepository userRepository,
+        RoleService roleService,
+        PasswordEncoder passwordEncoder,
+        JwtUtil jwtUtil,
+        ValidationService validationService, 
+        JwtBlacklistService jwtBlacklistService
+    ) {
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
         this.validationService = validationService;
+        this.jwtBlacklistService = jwtBlacklistService;
     }
 
     public User findByEmail(String email) {
@@ -53,7 +65,7 @@ public class UserService {
 
     public LoginResponseDto loginUser(LoginRequestDto loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getEmail())
-                .orElseThrow(() -> new LoginException("メールアドレスまたはパスワードが間違っています"));
+            .orElseThrow(() -> new LoginException("メールアドレスまたはパスワードが間違っています"));
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             throw new LoginException("メールアドレスまたはパスワードが間違っています");
         }
@@ -62,5 +74,21 @@ public class UserService {
         String roleName = user.getRole() != null ? user.getRole().getName() : null;
 
         return new LoginResponseDto(token, roleName);
+    }
+
+    public MeResponseDto meUser(HttpServletRequest request) {
+        String authHeader = request.getHeader(AuthConstants.AUTH_HEADER);
+        String token = authHeader.substring(7);
+        String email = jwtUtil.validateTokenAndRetrieveSubject(token);
+        if (jwtBlacklistService.isTokenBlacklisted(token)) {
+            throw new IllegalArgumentException("トークンは無効です。再ログインしてください。");
+        }
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));
+        return new MeResponseDto(
+            user.getFirstName(),
+            user.getLastName(),
+            user.getEmail(),
+            user.getRole().getName());
     }
 }

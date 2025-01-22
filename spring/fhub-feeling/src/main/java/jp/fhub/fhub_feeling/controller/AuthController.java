@@ -1,12 +1,12 @@
 package jp.fhub.fhub_feeling.controller;
 
+import jp.fhub.fhub_feeling.constant.AuthConstants;
 import jp.fhub.fhub_feeling.dto.requestdto.LoginRequestDto;
 import jp.fhub.fhub_feeling.dto.requestdto.RegisterRequestDto;
 import jp.fhub.fhub_feeling.dto.responsedto.LoginResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.MeResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.RefreshResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.RegisterResponseDto;
-import jp.fhub.fhub_feeling.entity.User;
 import jp.fhub.fhub_feeling.service.JwtBlacklistService;
 import jp.fhub.fhub_feeling.service.UserService;
 import jp.fhub.fhub_feeling.service.ValidationService;
@@ -24,8 +24,6 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-
-    private static final String AUTH_HEADER = "Authorization";
 
     private final JwtUtil jwtUtil;
     private final UserService userService;
@@ -66,31 +64,14 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<MeResponseDto> me(HttpServletRequest request) {
-        String authHeader = request.getHeader(AUTH_HEADER);
-        String token = authHeader.substring(7);
-
-        String email = jwtUtil.validateTokenAndRetrieveSubject(token);
-
-        // トークンがブラックリストに登録されていないか確認
-        if (jwtBlacklistService.isTokenBlacklisted(token)) {
-            MeResponseDto errorResponse = new MeResponseDto("トークンは無効です。再ログインしてください。");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
-        }
-        User user = userService.findByEmail(email);
-        // ユーザー情報をMeResponseDtoにセット
-        MeResponseDto response = new MeResponseDto(
-                    user.getFirstName(),
-                    user.getLastName(),
-                    user.getEmail(),
-                    user.getRole().getName());
-
-        return ResponseEntity.ok(response);
+    public ResponseEntity<MeResponseDto> me(HttpServletRequest request) {   
+        MeResponseDto meResponse = userService.meUser(request);
+        return ResponseEntity.ok(meResponse);
     }
     
     @PostMapping("/refresh")
     public ResponseEntity<RefreshResponseDto> refresh(HttpServletRequest request) {
-        String authHeader = request.getHeader(AUTH_HEADER);
+        String authHeader = request.getHeader(AuthConstants.AUTH_HEADER);
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return ResponseEntity.badRequest().body(new RefreshResponseDto("アクセストークンが含まれていません"));
@@ -111,7 +92,7 @@ public class AuthController {
     
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpServletRequest request) {
-        String authHeader = request.getHeader(AUTH_HEADER);
+        String authHeader = request.getHeader(AuthConstants.AUTH_HEADER);
         String accessToken = authHeader.substring(7);
 
         try {
