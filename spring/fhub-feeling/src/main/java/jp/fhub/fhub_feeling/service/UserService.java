@@ -1,10 +1,15 @@
 package jp.fhub.fhub_feeling.service;
 
+import jp.fhub.fhub_feeling.dto.requestdto.LoginRequestDto;
 import jp.fhub.fhub_feeling.dto.requestdto.RegisterRequestDto;
+import jp.fhub.fhub_feeling.dto.responsedto.LoginResponseDto;
 import jp.fhub.fhub_feeling.entity.Role;
 import jp.fhub.fhub_feeling.entity.User;
 import jp.fhub.fhub_feeling.repository.UserRepository;
+import jp.fhub.fhub_feeling.util.JwtUtil;
+import jp.fhub.fhub_feeling.exception.customexception.auth.LoginException;
 import java.time.LocalDateTime;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +19,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
+    private final ValidationService validationService;
 
-    public UserService(UserRepository userRepository, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleService roleService, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, ValidationService validationService) {
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
+        this.validationService = validationService;
     }
 
     public User findByEmail(String email) {
@@ -26,7 +35,7 @@ public class UserService {
     }
 
     public void registerUser(RegisterRequestDto request) {
-        validateRegistrationRequest(request);
+        validationService.validateRegistrationRequest(request);
 
         Role role = roleService.getRoleByName("user");
 
@@ -42,17 +51,16 @@ public class UserService {
         userRepository.save(user);
     }
 
-    private void validateRegistrationRequest(RegisterRequestDto request) {
-        String password = request.getPassword();
-        String confirmPassword = request.getConfirmPassword();
-        boolean isEqualsCheckPassword = password.equals(confirmPassword);
-        if (!isEqualsCheckPassword) {
-            throw new IllegalArgumentException("パスワードが一致していません");
+    public LoginResponseDto loginUser(LoginRequestDto loginRequest) {
+        User user = userRepository.findByEmail(loginRequest.getEmail())
+                .orElseThrow(() -> new LoginException("メールアドレスまたはパスワードが間違っています"));
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            throw new LoginException("メールアドレスまたはパスワードが間違っています");
         }
 
-        boolean isEmailAlreadyRegistered = userRepository.findByEmail(request.getEmail()).isPresent();
-        if (isEmailAlreadyRegistered) {
-            throw new IllegalArgumentException("既に登録されているメールアドレスです。別のメールアドレスでお試しください。");
-        }
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRoles());
+        String roleName = user.getRole() != null ? user.getRole().getName() : null;
+
+        return new LoginResponseDto(token, roleName);
     }
 }
