@@ -3,21 +3,16 @@ package jp.fhub.fhub_feeling.controller;
 import jp.fhub.fhub_feeling.dto.requestdto.LoginRequestDto;
 import jp.fhub.fhub_feeling.dto.requestdto.RegisterRequestDto;
 import jp.fhub.fhub_feeling.dto.responsedto.LoginResponseDto;
+import jp.fhub.fhub_feeling.dto.responsedto.LogoutResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.MeResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.RefreshResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.RegisterResponseDto;
-import jp.fhub.fhub_feeling.entity.User;
-import jp.fhub.fhub_feeling.service.JwtBlacklistService;
 import jp.fhub.fhub_feeling.service.UserService;
 import jp.fhub.fhub_feeling.service.ValidationService;
-import jp.fhub.fhub_feeling.util.JwtUtil;
-
-import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -25,22 +20,14 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private static final String AUTH_HEADER = "Authorization";
-
-    private final JwtUtil jwtUtil;
     private final UserService userService;
-    private final JwtBlacklistService jwtBlacklistService;
     private final ValidationService validationService;
 
     public AuthController(
-            JwtUtil jwtUtil,
             UserService userService,
-            JwtBlacklistService jwtBlacklistService,
             ValidationService validationService
     ) {
-        this.jwtUtil = jwtUtil;
         this.userService = userService;
-        this.jwtBlacklistService = jwtBlacklistService;
         this.validationService = validationService;
     }
     
@@ -66,61 +53,20 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<MeResponseDto> me(HttpServletRequest request) {
-        String authHeader = request.getHeader(AUTH_HEADER);
-        String token = authHeader.substring(7);
-
-        String email = jwtUtil.validateTokenAndRetrieveSubject(token);
-
-        // トークンがブラックリストに登録されていないか確認
-        if (jwtBlacklistService.isTokenBlacklisted(token)) {
-            MeResponseDto errorResponse = new MeResponseDto("トークンは無効です。再ログインしてください。");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
-        }
-        User user = userService.findByEmail(email);
-        // ユーザー情報をMeResponseDtoにセット
-        MeResponseDto response = new MeResponseDto(
-                    user.getFirstName(),
-                    user.getLastName(),
-                    user.getEmail(),
-                    user.getRole().getName());
-
-        return ResponseEntity.ok(response);
+    public ResponseEntity<MeResponseDto> me(HttpServletRequest request) {   
+        MeResponseDto meResponse = userService.meUser(request);
+        return ResponseEntity.ok(meResponse);
     }
     
     @PostMapping("/refresh")
     public ResponseEntity<RefreshResponseDto> refresh(HttpServletRequest request) {
-        String authHeader = request.getHeader(AUTH_HEADER);
-
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.badRequest().body(new RefreshResponseDto("アクセストークンが含まれていません"));
-        }
-        String accessToken = authHeader.substring(7);
-
-        try {
-            String email = jwtUtil.validateTokenAndRetrieveSubject(accessToken);
-            List<String> roles = jwtUtil.extractRoles(accessToken);
-            String newRefreshToken = jwtUtil.generateRefreshToken(email, roles);
-            return ResponseEntity.status(HttpStatus.CREATED).body(new RefreshResponseDto(newRefreshToken));
-
-        } catch (JWTVerificationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new RefreshResponseDto("リフレッシュトークンが無効です"));
-        }
+        RefreshResponseDto refreshResponse = userService.refreshUser(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(refreshResponse);
     }
     
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletRequest request) {
-        String authHeader = request.getHeader(AUTH_HEADER);
-        String accessToken = authHeader.substring(7);
-
-        try {
-            jwtUtil.validateTokenAndRetrieveSubject(accessToken);
-            jwtBlacklistService.addToBlacklist(accessToken);
-            return ResponseEntity.status(HttpStatus.CREATED).body("ログアウト成功");
-
-        } catch (JWTVerificationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("無効なトークンです");
-        }
+    public ResponseEntity<LogoutResponseDto> logout(HttpServletRequest request) {
+        LogoutResponseDto logoutResponse = userService.logoutUser(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(logoutResponse);
     }
 }
