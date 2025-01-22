@@ -1,21 +1,18 @@
 package jp.fhub.fhub_feeling.controller;
 
-import jp.fhub.fhub_feeling.constant.AuthConstants;
 import jp.fhub.fhub_feeling.dto.requestdto.LoginRequestDto;
 import jp.fhub.fhub_feeling.dto.requestdto.RegisterRequestDto;
 import jp.fhub.fhub_feeling.dto.responsedto.LoginResponseDto;
+import jp.fhub.fhub_feeling.dto.responsedto.LogoutResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.MeResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.RefreshResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.RegisterResponseDto;
-import jp.fhub.fhub_feeling.service.JwtBlacklistService;
 import jp.fhub.fhub_feeling.service.UserService;
 import jp.fhub.fhub_feeling.service.ValidationService;
-import jp.fhub.fhub_feeling.util.JwtUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -23,20 +20,14 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final JwtUtil jwtUtil;
     private final UserService userService;
-    private final JwtBlacklistService jwtBlacklistService;
     private final ValidationService validationService;
 
     public AuthController(
-            JwtUtil jwtUtil,
             UserService userService,
-            JwtBlacklistService jwtBlacklistService,
             ValidationService validationService
     ) {
-        this.jwtUtil = jwtUtil;
         this.userService = userService;
-        this.jwtBlacklistService = jwtBlacklistService;
         this.validationService = validationService;
     }
     
@@ -74,17 +65,8 @@ public class AuthController {
     }
     
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletRequest request) {
-        String authHeader = request.getHeader(AuthConstants.AUTH_HEADER);
-        String accessToken = authHeader.substring(7);
-
-        try {
-            jwtUtil.validateTokenAndRetrieveSubject(accessToken);
-            jwtBlacklistService.addToBlacklist(accessToken);
-            return ResponseEntity.status(HttpStatus.CREATED).body("ログアウト成功");
-
-        } catch (JWTVerificationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("無効なトークンです");
-        }
+    public ResponseEntity<LogoutResponseDto> logout(HttpServletRequest request) {
+        LogoutResponseDto logoutResponse = userService.logoutUser(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(logoutResponse);
     }
 }

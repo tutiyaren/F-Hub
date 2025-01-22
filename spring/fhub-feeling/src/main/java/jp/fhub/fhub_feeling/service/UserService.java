@@ -4,6 +4,7 @@ import jp.fhub.fhub_feeling.constant.AuthConstants;
 import jp.fhub.fhub_feeling.dto.requestdto.LoginRequestDto;
 import jp.fhub.fhub_feeling.dto.requestdto.RegisterRequestDto;
 import jp.fhub.fhub_feeling.dto.responsedto.LoginResponseDto;
+import jp.fhub.fhub_feeling.dto.responsedto.LogoutResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.MeResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.RefreshResponseDto;
 import jp.fhub.fhub_feeling.entity.Role;
@@ -98,12 +99,7 @@ public class UserService {
 
     public RefreshResponseDto refreshUser(HttpServletRequest request) {
         String authHeader = request.getHeader(AuthConstants.AUTH_HEADER);
-
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            throw new IllegalArgumentException("トークンは無効です。再ログインしてください。");
-        }
         String accessToken = authHeader.substring(7);
-
         try {
             String email = jwtUtil.validateTokenAndRetrieveSubject(accessToken);
             List<String> roles = jwtUtil.extractRoles(accessToken);
@@ -112,6 +108,19 @@ public class UserService {
 
         } catch (JWTVerificationException e) {
             return new RefreshResponseDto("リフレッシュトークンが無効です。再ログインしてください。");
+        }
+    }
+
+    public LogoutResponseDto logoutUser(HttpServletRequest request) {
+        String authHeader = request.getHeader(AuthConstants.AUTH_HEADER);
+        String accessToken = authHeader.substring(7);
+        try {
+            jwtUtil.validateTokenAndRetrieveSubject(accessToken);
+            jwtBlacklistService.addToBlacklist(accessToken);
+            return new LogoutResponseDto("ログアウト成功");
+
+        } catch (JWTVerificationException e) {
+            return new LogoutResponseDto("無効なトークンです");
         }
     }
 }
