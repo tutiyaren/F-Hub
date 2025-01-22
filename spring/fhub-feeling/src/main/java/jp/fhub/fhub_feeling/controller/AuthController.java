@@ -5,21 +5,20 @@ import jp.fhub.fhub_feeling.dto.requestdto.RegisterRequestDto;
 import jp.fhub.fhub_feeling.dto.responsedto.LoginResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.MeResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.RefreshResponseDto;
+import jp.fhub.fhub_feeling.dto.responsedto.RegisterResponseDto;
 import jp.fhub.fhub_feeling.entity.User;
-import jp.fhub.fhub_feeling.entity.Role;
 import jp.fhub.fhub_feeling.exception.customexception.auth.LoginException;
-import jp.fhub.fhub_feeling.repository.RoleRepository;
 import jp.fhub.fhub_feeling.repository.UserRepository;
 import jp.fhub.fhub_feeling.service.JwtBlacklistService;
 import jp.fhub.fhub_feeling.service.UserService;
+import jp.fhub.fhub_feeling.service.ValidationService;
 import jp.fhub.fhub_feeling.util.JwtUtil;
 
-import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,47 +31,37 @@ public class AuthController {
     private static final String AUTH_HEADER = "Authorization";
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final JwtBlacklistService jwtBlacklistService;
+    private final ValidationService validationService;
 
-    public AuthController(UserRepository userRepository, 
-            RoleRepository roleRepository, JwtUtil jwtUtil, PasswordEncoder passwordEncoder,
-            UserService userService, JwtBlacklistService jwtBlacklistService) {
+    public AuthController(
+            UserRepository userRepository,
+            JwtUtil jwtUtil,
+            PasswordEncoder passwordEncoder,
+            UserService userService,
+            JwtBlacklistService jwtBlacklistService,
+            ValidationService validationService
+    ) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.jwtUtil = jwtUtil;
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
         this.jwtBlacklistService = jwtBlacklistService;
+        this.validationService = validationService;
     }
     
     @PostMapping("/register")
-    public ResponseEntity<String> register(@Valid @RequestBody RegisterRequestDto request) {
-        if (!request.getPassword().equals(request.getConfirmPassword())) {
-            return ResponseEntity.badRequest().body("パスワードが一致していません");
+    public ResponseEntity<RegisterResponseDto> register(@Valid @RequestBody RegisterRequestDto request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String errorMessage = validationService.extractFirstErrorMessage(bindingResult);
+            return ResponseEntity.unprocessableEntity().body(new RegisterResponseDto(errorMessage));
         }
-
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().body("既に登録されているメールアドレスです。別のメールアドレスでお試しください。");
-        }
-
-        Role role = roleRepository.findByName("user")
-                .orElseThrow(() -> new RuntimeException("Default role not found"));
-
-        User user = new User();
-        user.setRole(role);
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setCreatedAt(LocalDateTime.now());
-        user.setUpdatedAt(LocalDateTime.now());
-
-        userRepository.save(user);
-        return ResponseEntity.ok("会員登録完了がしました。");
+        userService.registerUser(request);
+        RegisterResponseDto response = new RegisterResponseDto("会員登録が完了しました。");
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PostMapping("/login")
@@ -84,7 +73,7 @@ public class AuthController {
                     String roleName = user.getRole() != null ? user.getRole().getName() : null;
                     return ResponseEntity.status(HttpStatus.CREATED).body(new LoginResponseDto(token, roleName));
                 })
-                .orElseThrow(() -> new LoginException("メールアドレスまたはパスワードが間違っています。"));
+                .orElseThrow(() -> new LoginException("メールアドレスまたはパスワードが間違っています"));
     }
 
     @GetMapping("/me")
@@ -115,7 +104,7 @@ public class AuthController {
         String authHeader = request.getHeader(AUTH_HEADER);
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.badRequest().body(new RefreshResponseDto("アクセストークンが含まれていません。"));
+            return ResponseEntity.badRequest().body(new RefreshResponseDto("アクセストークンが含まれていません"));
         }
         String accessToken = authHeader.substring(7);
 
@@ -127,7 +116,7 @@ public class AuthController {
 
         } catch (JWTVerificationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new RefreshResponseDto("リフレッシュトークンが無効です。"));
+                    .body(new RefreshResponseDto("リフレッシュトークンが無効です"));
         }
     }
     
