@@ -12,4 +12,14 @@ import lombok.Setter;
 public class LoginResponseDto {
     private String token;
     private String roleName;
+    private String errorMessage;
+
+    public LoginResponseDto(String token, String roleName) {
+        this.token = token;
+        this.roleName = roleName;
+    }
+
+    public LoginResponseDto(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 }

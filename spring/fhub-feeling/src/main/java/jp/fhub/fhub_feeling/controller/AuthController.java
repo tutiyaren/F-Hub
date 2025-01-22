@@ -7,8 +7,6 @@ import jp.fhub.fhub_feeling.dto.responsedto.MeResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.RefreshResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.RegisterResponseDto;
 import jp.fhub.fhub_feeling.entity.User;
-import jp.fhub.fhub_feeling.exception.customexception.auth.LoginException;
-import jp.fhub.fhub_feeling.repository.UserRepository;
 import jp.fhub.fhub_feeling.service.JwtBlacklistService;
 import jp.fhub.fhub_feeling.service.UserService;
 import jp.fhub.fhub_feeling.service.ValidationService;
@@ -17,7 +15,6 @@ import jp.fhub.fhub_feeling.util.JwtUtil;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -30,24 +27,18 @@ public class AuthController {
 
     private static final String AUTH_HEADER = "Authorization";
 
-    private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
-    private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final JwtBlacklistService jwtBlacklistService;
     private final ValidationService validationService;
 
     public AuthController(
-            UserRepository userRepository,
             JwtUtil jwtUtil,
-            PasswordEncoder passwordEncoder,
             UserService userService,
             JwtBlacklistService jwtBlacklistService,
             ValidationService validationService
     ) {
-        this.userRepository = userRepository;
         this.jwtUtil = jwtUtil;
-        this.passwordEncoder = passwordEncoder;
         this.userService = userService;
         this.jwtBlacklistService = jwtBlacklistService;
         this.validationService = validationService;
@@ -65,15 +56,13 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequest) {
-        return userRepository.findByEmail(loginRequest.getEmail())
-                .filter(user -> passwordEncoder.matches(loginRequest.getPassword(), user.getPassword()))
-                .map(user -> {
-                    String token = jwtUtil.generateToken(user.getEmail(), user.getRoles());
-                    String roleName = user.getRole() != null ? user.getRole().getName() : null;
-                    return ResponseEntity.status(HttpStatus.CREATED).body(new LoginResponseDto(token, roleName));
-                })
-                .orElseThrow(() -> new LoginException("メールアドレスまたはパスワードが間違っています"));
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String errorMessage = validationService.extractFirstErrorMessage(bindingResult);
+            return ResponseEntity.unprocessableEntity().body(new LoginResponseDto(errorMessage));
+        }
+        LoginResponseDto loginResponse = userService.loginUser(loginRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(loginResponse);
     }
 
     @GetMapping("/me")
