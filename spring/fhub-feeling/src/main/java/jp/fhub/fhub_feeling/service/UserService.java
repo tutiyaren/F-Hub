@@ -1,6 +1,5 @@
 package jp.fhub.fhub_feeling.service;
 
-import jp.fhub.fhub_feeling.constant.AuthConstants;
 import jp.fhub.fhub_feeling.dto.requestdto.LoginRequestDto;
 import jp.fhub.fhub_feeling.dto.requestdto.RegisterRequestDto;
 import jp.fhub.fhub_feeling.dto.responsedto.LoginResponseDto;
@@ -30,6 +29,7 @@ public class UserService {
     private final JwtUtil jwtUtil;
     private final ValidationService validationService;
     private final JwtBlacklistService jwtBlacklistService;
+    private final CustomUserDetailsService customUserDetailsService;
 
     public UserService(
         UserRepository userRepository,
@@ -37,7 +37,8 @@ public class UserService {
         PasswordEncoder passwordEncoder,
         JwtUtil jwtUtil,
         ValidationService validationService, 
-        JwtBlacklistService jwtBlacklistService
+        JwtBlacklistService jwtBlacklistService,
+        CustomUserDetailsService customUserDetailsService
     ) {
         this.userRepository = userRepository;
         this.roleService = roleService;
@@ -45,6 +46,7 @@ public class UserService {
         this.jwtUtil = jwtUtil;
         this.validationService = validationService;
         this.jwtBlacklistService = jwtBlacklistService;
+        this.customUserDetailsService = customUserDetailsService;
     }
 
     public User findByEmail(String email) {
@@ -82,8 +84,7 @@ public class UserService {
     }
 
     public MeResponseDto meUser(HttpServletRequest request) {
-        String authHeader = request.getHeader(AuthConstants.AUTH_HEADER);
-        String token = authHeader.substring(7);
+        String token = customUserDetailsService.getLogunUserTokenHeader(request);
         String email = jwtUtil.validateTokenAndRetrieveSubject(token);
         if (jwtBlacklistService.isTokenBlacklisted(token)) {
             throw new IllegalArgumentException("トークンは無効です。再ログインしてください。");
@@ -98,8 +99,7 @@ public class UserService {
     }
 
     public RefreshResponseDto refreshUser(HttpServletRequest request) {
-        String authHeader = request.getHeader(AuthConstants.AUTH_HEADER);
-        String accessToken = authHeader.substring(7);
+        String accessToken = customUserDetailsService.getLogunUserTokenHeader(request);
         try {
             String email = jwtUtil.validateTokenAndRetrieveSubject(accessToken);
             List<String> roles = jwtUtil.extractRoles(accessToken);
@@ -112,8 +112,7 @@ public class UserService {
     }
 
     public LogoutResponseDto logoutUser(HttpServletRequest request) {
-        String authHeader = request.getHeader(AuthConstants.AUTH_HEADER);
-        String accessToken = authHeader.substring(7);
+        String accessToken = customUserDetailsService.getLogunUserTokenHeader(request);
         try {
             jwtUtil.validateTokenAndRetrieveSubject(accessToken);
             jwtBlacklistService.addToBlacklist(accessToken);

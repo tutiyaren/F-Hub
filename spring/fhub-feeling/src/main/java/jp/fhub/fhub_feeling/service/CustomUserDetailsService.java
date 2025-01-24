@@ -5,6 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import jakarta.servlet.http.HttpServletRequest;
+import jp.fhub.fhub_feeling.constant.AuthConstants;
 import jp.fhub.fhub_feeling.entity.User;
 import jp.fhub.fhub_feeling.repository.UserRepository;
 
@@ -25,5 +27,10 @@ public class CustomUserDetailsService implements UserDetailsService {
                 user.getPassword(),
                 true, true, true, true,
                 List.of());
+    }
+
+    public String getLogunUserTokenHeader(HttpServletRequest request) {
+        String authHeader = request.getHeader(AuthConstants.AUTH_HEADER);
+        return authHeader.substring(7);
     }
 }
