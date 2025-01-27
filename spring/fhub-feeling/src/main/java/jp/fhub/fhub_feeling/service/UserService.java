@@ -13,6 +13,8 @@ import jp.fhub.fhub_feeling.util.JwtUtil;
 import jp.fhub.fhub_feeling.exception.customexception.auth.LoginException;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +53,11 @@ public class UserService {
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
+    }
+
+    public User authUser() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return this.findByEmail(email);
     }
 
     public void registerUser(RegisterRequestDto request) {

@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jp.fhub.fhub_feeling.service.CustomUserDetailsService;
+import jp.fhub.fhub_feeling.service.JwtBlacklistService;
 import jp.fhub.fhub_feeling.util.JwtUtil;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,10 +24,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final CustomUserDetailsService userDetailsService;
+    private final JwtBlacklistService jwtBlacklistService;
 
-    public JwtAuthenticationFilter(JwtUtil jwtUtil, CustomUserDetailsService userDetailsService) {
+    public JwtAuthenticationFilter(JwtUtil jwtUtil, CustomUserDetailsService userDetailsService, JwtBlacklistService jwtBlacklistService) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
+        this.jwtBlacklistService = jwtBlacklistService;
     }
 
     @Override
@@ -41,6 +44,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // トークン抽出
         String token = authHeader.substring(7);
+
+        if (jwtBlacklistService.isTokenBlacklisted(token)) {
+            logger.error("認証に失敗しました。再度ログインしてください。");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            String jsonResponse = "{\"result\": 401, \"message\": \"認証に失敗しました。再度ログインしてください。\"}";
+            response.getWriter().write(jsonResponse);
+            return;
+        }
+
         String email;
         try {
             // トークンが無効な場合、フィルターを次に進める
