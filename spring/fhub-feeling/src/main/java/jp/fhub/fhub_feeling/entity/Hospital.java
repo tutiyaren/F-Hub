@@ -1,5 +1,6 @@
 package jp.fhub.fhub_feeling.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +37,12 @@ public class Hospital {
 
     @Column(name = "phone_number", length = 15, nullable = false)
     private String phoneNumber;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "hospital", fetch = FetchType.LAZY)
     private List<HospitalUser> hospitalUsers;

@@ -5,6 +5,9 @@ import jp.fhub.fhub_feeling.service.TopPageService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -19,9 +22,9 @@ public class RoleController {
     }
 
     @GetMapping("")
-    public ResponseEntity<TopPageResponseDto> index(HttpServletRequest request)
+    public ResponseEntity<List<TopPageResponseDto>> index(HttpServletRequest request)
     {
-        TopPageResponseDto topPageResponseDto = topPageService.getTopPage(request);
+        List<TopPageResponseDto> topPageResponseDto = topPageService.getTopPage(request);
         return ResponseEntity.ok().body(topPageResponseDto);
     }
 
