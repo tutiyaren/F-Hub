@@ -300,3 +300,405 @@ com.auth0.jwt.exceptions.TokenExpiredException: The Token has expired on 2025-01
 2025-01-27T13:50:05.451+09:00  INFO 70802 --- [fhub-feeling] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-01-27T13:50:05.462+09:00  INFO 70802 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2025-01-27T13:50:05.468+09:00  INFO 70802 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-27T16:29:05.658+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Starting FhubFeelingApplication using Java 21.0.5 with PID 55283 (/home/ren/ren-hub/f-hub/spring/fhub-feeling/build/classes/java/main started by ren in /home/ren/ren-hub/f-hub)
+2025-01-27T16:29:05.660+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-01-27T16:29:05.719+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-01-27T16:29:07.408+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-27T16:29:07.480+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 61 ms. Found 3 JPA repository interfaces.
+2025-01-27T16:29:08.580+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-01-27T16:29:08.618+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-27T16:29:08.619+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-01-27T16:29:08.676+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-27T16:29:08.676+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2956 ms
+2025-01-27T16:29:10.179+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/fhub_db?useSSL=false&serverTimezone=UTC (PostgreSQL 17.2)
+2025-01-27T16:29:10.388+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.059s)
+2025-01-27T16:29:10.475+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2.5
+2025-01-27T16:29:10.479+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2025-01-27T16:29:10.627+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-27T16:29:10.706+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-01-27T16:29:10.765+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-27T16:29:11.413+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-27T16:29:11.485+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-27T16:29:11.526+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1aaed8a2
+2025-01-27T16:29:11.529+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-27T16:29:11.616+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-01-27T16:29:13.115+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-27T16:29:14.053+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:29:14.675+09:00  WARN 55283 --- [fhub-feeling] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-27T16:29:14.724+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-01-27T16:29:15.367+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2025-01-27T16:29:16.282+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-01-27T16:29:16.407+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-01-27T16:29:16.439+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Started FhubFeelingApplication in 11.297 seconds (process running for 11.83)
+2025-01-27T16:29:17.710+09:00  INFO 55283 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-27T16:29:17.711+09:00  INFO 55283 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-01-27T16:29:17.712+09:00  INFO 55283 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-01-27T16:29:48.496+09:00 ERROR 55283 --- [fhub-feeling] [http-nio-8080-exec-2] j.f.f.filter.JwtAuthenticationFilter     : 認証に失敗しました。再度ログインしてください。
+
+com.auth0.jwt.exceptions.TokenExpiredException: The Token has expired on 2025-01-27T05:48:36Z.
+	at com.auth0.jwt.JWTVerifier$BaseVerification.assertValidInstantClaim(JWTVerifier.java:346) ~[java-jwt-4.4.0.jar:4.4.0]
+	at com.auth0.jwt.JWTVerifier$BaseVerification.lambda$addMandatoryClaimChecks$17(JWTVerifier.java:308) ~[java-jwt-4.4.0.jar:4.4.0]
+	at com.auth0.jwt.JWTVerifier$BaseVerification$1.verify(JWTVerifier.java:405) ~[java-jwt-4.4.0.jar:4.4.0]
+	at com.auth0.jwt.JWTVerifier.verifyClaims(JWTVerifier.java:482) ~[java-jwt-4.4.0.jar:4.4.0]
+	at com.auth0.jwt.JWTVerifier.verify(JWTVerifier.java:464) ~[java-jwt-4.4.0.jar:4.4.0]
+	at com.auth0.jwt.JWTVerifier.verify(JWTVerifier.java:445) ~[java-jwt-4.4.0.jar:4.4.0]
+	at jp.fhub.fhub_feeling.util.JwtUtil.validateToken(JwtUtil.java:57) ~[main/:na]
+	at jp.fhub.fhub_feeling.util.JwtUtil.validateTokenAndRetrieveSubject(JwtUtil.java:75) ~[main/:na]
+	at jp.fhub.fhub_feeling.filter.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:47) ~[main/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:323) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:224) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243) ~[spring-webmvc-6.2.2.jar:6.2.2]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238) ~[spring-security-config-6.4.2.jar:6.4.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:114) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.2.jar:6.2.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2025-01-27T16:33:27.506+09:00 ERROR 55283 --- [fhub-feeling] [http-nio-8080-exec-9] j.f.f.exception.GlobalExceptionHandler   : 権限エラー: JSON parse error: Unexpected character (',' (code 44)): expected a value
+2025-01-27T16:34:26.741+09:00 ERROR 55283 --- [fhub-feeling] [http-nio-8080-exec-4] j.f.f.exception.GlobalExceptionHandler   : 権限エラー: JSON parse error: Cannot deserialize value of type `int` from String "goodContents": not a valid `int` value
+2025-01-27T16:36:26.327+09:00  INFO 55283 --- [fhub-feeling] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 3 class path changes (0 additions, 3 deletions, 0 modifications)
+2025-01-27T16:36:26.344+09:00  INFO 55283 --- [fhub-feeling] [Thread-5] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-01-27T16:36:26.354+09:00  INFO 55283 --- [fhub-feeling] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-01-27T16:36:26.404+09:00  INFO 55283 --- [fhub-feeling] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:36:26.424+09:00  INFO 55283 --- [fhub-feeling] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-27T16:36:26.466+09:00  INFO 55283 --- [fhub-feeling] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-27T16:36:26.721+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Starting FhubFeelingApplication using Java 21.0.5 with PID 55283 (/home/ren/ren-hub/f-hub/spring/fhub-feeling/build/classes/java/main started by ren in /home/ren/ren-hub/f-hub)
+2025-01-27T16:36:26.722+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-01-27T16:36:27.684+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-27T16:36:27.741+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 53 ms. Found 3 JPA repository interfaces.
+2025-01-27T16:36:28.039+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-01-27T16:36:28.072+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1342 ms
+2025-01-27T16:36:28.388+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/fhub_db?useSSL=false&serverTimezone=UTC (PostgreSQL 17.2)
+2025-01-27T16:36:28.447+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.036s)
+2025-01-27T16:36:28.511+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2.5
+2025-01-27T16:36:28.525+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2025-01-27T16:36:28.586+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-27T16:36:28.590+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-27T16:36:28.610+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-27T16:36:28.612+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2025-01-27T16:36:28.642+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@65633360
+2025-01-27T16:36:28.642+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2025-01-27T16:36:28.654+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 17.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-01-27T16:36:29.013+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-27T16:36:29.427+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:36:29.660+09:00  WARN 55283 --- [fhub-feeling] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-27T16:36:29.682+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-01-27T16:36:30.136+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2025-01-27T16:36:30.415+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-01-27T16:36:30.441+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-01-27T16:36:30.453+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Started FhubFeelingApplication in 3.823 seconds (process running for 445.819)
+2025-01-27T16:36:30.454+09:00  INFO 55283 --- [fhub-feeling] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-01-27T16:36:30.456+09:00  INFO 55283 --- [fhub-feeling] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-01-27T16:36:30.457+09:00  INFO 55283 --- [fhub-feeling] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-01-27T16:36:30.462+09:00  INFO 55283 --- [fhub-feeling] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:36:30.463+09:00  INFO 55283 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2025-01-27T16:36:30.466+09:00  INFO 55283 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2025-01-27T16:36:32.056+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Starting FhubFeelingApplication using Java 21.0.5 with PID 59253 (/home/ren/ren-hub/f-hub/spring/fhub-feeling/build/classes/java/main started by ren in /home/ren/ren-hub/f-hub)
+2025-01-27T16:36:32.059+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-01-27T16:36:32.122+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-01-27T16:36:33.703+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-27T16:36:33.783+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 66 ms. Found 3 JPA repository interfaces.
+2025-01-27T16:36:34.904+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-01-27T16:36:34.927+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-27T16:36:34.929+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-01-27T16:36:34.995+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-27T16:36:34.996+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2872 ms
+2025-01-27T16:36:35.737+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/fhub_db?useSSL=false&serverTimezone=UTC (PostgreSQL 17.2)
+2025-01-27T16:36:35.818+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.048s)
+2025-01-27T16:36:35.913+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2.5
+2025-01-27T16:36:35.918+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2025-01-27T16:36:36.093+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-27T16:36:36.178+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-01-27T16:36:36.218+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-27T16:36:36.579+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-27T16:36:36.622+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-27T16:36:36.655+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2d4151c0
+2025-01-27T16:36:36.657+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-27T16:36:36.753+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-01-27T16:36:37.808+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-27T16:36:38.170+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:36:38.900+09:00  WARN 59253 --- [fhub-feeling] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-27T16:36:38.964+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-01-27T16:36:39.610+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2025-01-27T16:36:40.482+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-01-27T16:36:40.580+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-01-27T16:36:40.601+09:00  INFO 59253 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Started FhubFeelingApplication in 9.131 seconds (process running for 9.781)
+2025-01-27T16:36:47.318+09:00  INFO 59253 --- [fhub-feeling] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-01-27T16:36:47.322+09:00  INFO 59253 --- [fhub-feeling] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-01-27T16:36:47.334+09:00  INFO 59253 --- [fhub-feeling] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:36:47.339+09:00  INFO 59253 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-27T16:36:47.349+09:00  INFO 59253 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-27T16:36:49.272+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Starting FhubFeelingApplication using Java 21.0.5 with PID 59696 (/home/ren/ren-hub/f-hub/spring/fhub-feeling/build/classes/java/main started by ren in /home/ren/ren-hub/f-hub)
+2025-01-27T16:36:49.276+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-01-27T16:36:49.358+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-01-27T16:36:50.954+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-27T16:36:51.044+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 78 ms. Found 3 JPA repository interfaces.
+2025-01-27T16:36:51.995+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-01-27T16:36:52.009+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-27T16:36:52.010+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-01-27T16:36:52.060+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-27T16:36:52.060+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2699 ms
+2025-01-27T16:36:52.758+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/fhub_db?useSSL=false&serverTimezone=UTC (PostgreSQL 17.2)
+2025-01-27T16:36:52.867+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.067s)
+2025-01-27T16:36:52.983+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2.5
+2025-01-27T16:36:52.988+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2025-01-27T16:36:53.102+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-27T16:36:53.161+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-01-27T16:36:53.201+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-27T16:36:53.496+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-27T16:36:53.536+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-27T16:36:53.570+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@34ba4c6c
+2025-01-27T16:36:53.572+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-27T16:36:53.649+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-01-27T16:36:54.849+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-27T16:36:55.165+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:36:55.754+09:00  WARN 59696 --- [fhub-feeling] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-27T16:36:55.800+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-01-27T16:36:56.525+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2025-01-27T16:36:57.280+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-01-27T16:36:57.403+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-01-27T16:36:57.437+09:00  INFO 59696 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Started FhubFeelingApplication in 8.841 seconds (process running for 9.733)
+2025-01-27T16:36:57.506+09:00  INFO 59696 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-27T16:36:57.507+09:00  INFO 59696 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-01-27T16:36:57.509+09:00  INFO 59696 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-01-27T16:37:08.565+09:00  INFO 59696 --- [fhub-feeling] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-01-27T16:37:08.568+09:00  INFO 59696 --- [fhub-feeling] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-01-27T16:37:08.585+09:00  INFO 59696 --- [fhub-feeling] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:37:08.588+09:00  INFO 59696 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-27T16:37:08.593+09:00  INFO 59696 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-27T16:37:14.530+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Starting FhubFeelingApplication using Java 21.0.5 with PID 60212 (/home/ren/ren-hub/f-hub/spring/fhub-feeling/build/classes/java/main started by ren in /home/ren/ren-hub/f-hub)
+2025-01-27T16:37:14.533+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-01-27T16:37:14.595+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-01-27T16:37:15.694+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-27T16:37:15.777+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 71 ms. Found 3 JPA repository interfaces.
+2025-01-27T16:37:16.903+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-01-27T16:37:16.926+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-27T16:37:16.928+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-01-27T16:37:16.999+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-27T16:37:16.999+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2402 ms
+2025-01-27T16:37:17.884+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/fhub_db?useSSL=false&serverTimezone=UTC (PostgreSQL 17.2)
+2025-01-27T16:37:17.972+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.052s)
+2025-01-27T16:37:18.074+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2.5
+2025-01-27T16:37:18.079+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2025-01-27T16:37:18.245+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-27T16:37:18.319+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-01-27T16:37:18.378+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-27T16:37:18.689+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-27T16:37:18.721+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-27T16:37:18.749+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@37fcb746
+2025-01-27T16:37:18.752+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-27T16:37:18.826+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-01-27T16:37:20.284+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-27T16:37:20.600+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:37:21.226+09:00  WARN 60212 --- [fhub-feeling] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-27T16:37:21.268+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-01-27T16:37:21.793+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2025-01-27T16:37:22.396+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-01-27T16:37:22.482+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-01-27T16:37:22.502+09:00  INFO 60212 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Started FhubFeelingApplication in 8.525 seconds (process running for 9.401)
+2025-01-27T16:37:23.181+09:00  INFO 60212 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-27T16:37:23.181+09:00  INFO 60212 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-01-27T16:37:23.183+09:00  INFO 60212 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-01-27T16:38:09.724+09:00 ERROR 60212 --- [fhub-feeling] [http-nio-8080-exec-4] j.f.f.exception.GlobalExceptionHandler   : 権限エラー: JSON parse error: Unexpected character (',' (code 44)): expected a value
+2025-01-27T16:44:48.285+09:00 ERROR 60212 --- [fhub-feeling] [http-nio-8080-exec-9] j.f.f.exception.GlobalExceptionHandler   : 会員登録エラー: トークンは無効です。再ログインしてください。
+2025-01-27T16:45:15.434+09:00  INFO 60212 --- [fhub-feeling] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-01-27T16:45:15.438+09:00  INFO 60212 --- [fhub-feeling] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-01-27T16:45:15.447+09:00  INFO 60212 --- [fhub-feeling] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:45:15.452+09:00  INFO 60212 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-27T16:45:15.455+09:00  INFO 60212 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-27T16:46:43.646+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Starting FhubFeelingApplication using Java 21.0.5 with PID 64859 (/home/ren/ren-hub/f-hub/spring/fhub-feeling/build/classes/java/main started by ren in /home/ren/ren-hub/f-hub)
+2025-01-27T16:46:43.649+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-01-27T16:46:43.697+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-01-27T16:46:45.173+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-27T16:46:45.284+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 91 ms. Found 3 JPA repository interfaces.
+2025-01-27T16:46:46.849+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-01-27T16:46:46.875+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-27T16:46:46.876+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-01-27T16:46:46.956+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-27T16:46:46.957+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3259 ms
+2025-01-27T16:46:47.875+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/fhub_db?useSSL=false&serverTimezone=UTC (PostgreSQL 17.2)
+2025-01-27T16:46:48.007+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.057s)
+2025-01-27T16:46:48.080+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2.5
+2025-01-27T16:46:48.085+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2025-01-27T16:46:48.255+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-27T16:46:48.347+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-01-27T16:46:48.420+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-27T16:46:48.931+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-27T16:46:48.987+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-27T16:46:49.039+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@69ef72
+2025-01-27T16:46:49.041+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-27T16:46:49.161+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-01-27T16:46:50.650+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-27T16:46:51.052+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:46:51.740+09:00  WARN 64859 --- [fhub-feeling] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-27T16:46:51.786+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-01-27T16:46:52.510+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2025-01-27T16:46:53.270+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-01-27T16:46:53.361+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-01-27T16:46:53.384+09:00  INFO 64859 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Started FhubFeelingApplication in 10.268 seconds (process running for 11.327)
+2025-01-27T16:46:55.161+09:00  INFO 64859 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-27T16:46:55.162+09:00  INFO 64859 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-01-27T16:46:55.167+09:00  INFO 64859 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2025-01-27T16:48:06.403+09:00  INFO 64859 --- [fhub-feeling] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-01-27T16:48:06.405+09:00  INFO 64859 --- [fhub-feeling] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-01-27T16:48:06.413+09:00  INFO 64859 --- [fhub-feeling] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:48:06.417+09:00  INFO 64859 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-27T16:48:06.424+09:00  INFO 64859 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-27T16:56:44.409+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Starting FhubFeelingApplication using Java 21.0.5 with PID 70418 (/home/ren/ren-hub/f-hub/spring/fhub-feeling/build/classes/java/main started by ren in /home/ren/ren-hub/f-hub)
+2025-01-27T16:56:44.412+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-01-27T16:56:44.463+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-01-27T16:56:46.316+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-27T16:56:46.478+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 122 ms. Found 3 JPA repository interfaces.
+2025-01-27T16:56:48.823+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-01-27T16:56:48.848+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-27T16:56:48.849+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-01-27T16:56:48.915+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-27T16:56:48.916+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4452 ms
+2025-01-27T16:56:49.945+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/fhub_db?useSSL=false&serverTimezone=UTC (PostgreSQL 17.2)
+2025-01-27T16:56:50.070+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.047s)
+2025-01-27T16:56:50.188+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2.5
+2025-01-27T16:56:50.194+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2025-01-27T16:56:50.500+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-27T16:56:50.629+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-01-27T16:56:50.703+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-27T16:56:51.112+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-27T16:56:51.179+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-27T16:56:51.279+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@20e08e04
+2025-01-27T16:56:51.283+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-27T16:56:51.422+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-01-27T16:56:52.884+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-27T16:56:54.058+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:56:54.642+09:00  WARN 70418 --- [fhub-feeling] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-27T16:56:54.689+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-01-27T16:56:55.314+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2025-01-27T16:56:56.120+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-01-27T16:56:56.203+09:00  INFO 70418 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-27T16:56:56.203+09:00  INFO 70418 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-01-27T16:56:56.206+09:00  INFO 70418 --- [fhub-feeling] [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-01-27T16:56:56.268+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-01-27T16:56:56.275+09:00  INFO 70418 --- [fhub-feeling] [restartedMain] j.f.fhub_feeling.FhubFeelingApplication  : Started FhubFeelingApplication in 12.424 seconds (process running for 13.304)
+2025-01-27T16:57:59.576+09:00 ERROR 70418 --- [fhub-feeling] [http-nio-8080-exec-5] j.f.f.filter.JwtAuthenticationFilter     : 無効なトークンです。再度ログインしてください。
+2025-01-27T16:58:05.696+09:00 ERROR 70418 --- [fhub-feeling] [http-nio-8080-exec-6] j.f.f.filter.JwtAuthenticationFilter     : 無効なトークンです。再度ログインしてください。
+2025-01-27T16:58:22.816+09:00 ERROR 70418 --- [fhub-feeling] [http-nio-8080-exec-7] j.f.f.filter.JwtAuthenticationFilter     : 無効なトークンです。再度ログインしてください。
+2025-01-27T16:58:26.077+09:00 ERROR 70418 --- [fhub-feeling] [http-nio-8080-exec-8] j.f.f.filter.JwtAuthenticationFilter     : 無効なトークンです。再度ログインしてください。
+2025-01-27T16:59:13.466+09:00 ERROR 70418 --- [fhub-feeling] [http-nio-8080-exec-1] j.f.f.filter.JwtAuthenticationFilter     : 無効なトークンです。再度ログインしてください。
+2025-01-27T16:59:46.402+09:00  INFO 70418 --- [fhub-feeling] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-01-27T16:59:46.406+09:00  INFO 70418 --- [fhub-feeling] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-01-27T16:59:46.419+09:00  INFO 70418 --- [fhub-feeling] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-27T16:59:46.426+09:00  INFO 70418 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-27T16:59:46.433+09:00  INFO 70418 --- [fhub-feeling] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
