@@ -24,12 +24,12 @@ public class DiaryResponseDto {
     
     public static DiaryResponseDto fromEntity(Diary diary) {
         return new DiaryResponseDto(
-                diary.getId(),
-                diary.getMoodScore(),
-                diary.getGoodContents(),
-                diary.getContents(),
-                diary.getCreatedAt(),
-                diary.getUser().getFirstName(),
-                diary.getUser().getLastName());
+            diary.getId(),
+            diary.getMoodScore(),
+            diary.getGoodContents(),
+            diary.getContents(),
+            diary.getCreatedAt(),
+            diary.getUser().getFirstName(),
+            diary.getUser().getLastName());
     }
 }
