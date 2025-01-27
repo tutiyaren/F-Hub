@@ -10,4 +10,8 @@ public interface DiaryRepository extends JpaRepository<Diary, UUID> {
     List<Diary> findTop3ByUserOrderByCreatedAtDesc(User user);
     List<Diary> findTop3ByUser_HospitalUsers_Hospital_IdOrderByCreatedAtDesc(UUID hospitalId);
     List<Diary> findTop3ByOrderByCreatedAtDesc();
+    
+    List<Diary> findByUserOrderByCreatedAtDesc(User user);
+    List<Diary> findByUser_hospitalUsers_Hospital_IdOrderByCreatedAtDesc(UUID hospitalId);
+    List<Diary> findByOrderByCreatedAtDesc();
 }
