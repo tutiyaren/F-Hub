@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jp.fhub.fhub_feeling.dto.requestdto.DiaryRequestDto;
+import jp.fhub.fhub_feeling.dto.responsedto.DiaryDestroyResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.DiaryResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.DiaryShowResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.DiaryStoreResponseDto;
 import jp.fhub.fhub_feeling.service.DiaryService;
 import jp.fhub.fhub_feeling.service.ValidationService;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +64,12 @@ public class DiaryController {
     public ResponseEntity<DiaryShowResponseDto> show(@PathVariable UUID diaryId) {
         DiaryShowResponseDto diaryShowResponseDto = diaryService.showDiary(diaryId);
         return ResponseEntity.ok().body(diaryShowResponseDto);
+    }
+
+    @DeleteMapping("{diaryId}")
+    public ResponseEntity<DiaryDestroyResponseDto> destroy(@PathVariable UUID diaryId) {
+        DiaryDestroyResponseDto response = diaryService.destroyDiary(diaryId);
+        return ResponseEntity.ok(response);
     }
     
 }

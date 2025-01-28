@@ -7,7 +7,9 @@ import java.util.Optional;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
+import jp.fhub.fhub_feeling.constant.DiaryConstants;
 import jp.fhub.fhub_feeling.dto.requestdto.DiaryRequestDto;
+import jp.fhub.fhub_feeling.dto.responsedto.DiaryDestroyResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.DiaryResponseDto;
 import jp.fhub.fhub_feeling.dto.responsedto.DiaryShowResponseDto;
 import jp.fhub.fhub_feeling.entity.Diary;
@@ -98,7 +100,7 @@ public class DiaryService {
         User user = userService.authUser();
         String roleName = user.getRole() != null ? user.getRole().getName() : null;
         Diary diary = diaryRepository.findDiaryById(diaryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "対象の日記が存在しません"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, DiaryConstants.DIARY_NOT_FOUND));
         User diaryUser = diary.getUser();
 
         if (roleService.isUserRole(roleName)) {
@@ -112,12 +114,12 @@ public class DiaryService {
         if (roleService.isSystemAdminRole(roleName)) {
             return createDiaryShowResponseDto(diary, diaryUser.getFirstName(), diaryUser.getLastName(), roleName);
         }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "対象の日記が存在しません");
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, DiaryConstants.DIARY_NOT_FOUND);
     }
 
     private DiaryShowResponseDto checkUserAccess(User user, Diary diary, String roleName) {
         if (!diary.getUser().getId().equals(user.getId())) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "この日記を表示する権限がありません。");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, DiaryConstants.DIARY_FORBIDDEN);
         }
         return createDiaryShowResponseDto(diary, null, null, roleName);
     }
@@ -125,7 +127,7 @@ public class DiaryService {
     private DiaryShowResponseDto checkHospitalAdminAccess(User user, Diary diary, User diaryUser, String roleName) {
         Optional<HospitalUser> hospitalUser = hospitalUserRepository.findByUserId(user.getId());
         if (hospitalUser.isEmpty() || !isUserInHospital(diary.getUser(), hospitalUser.get())) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "この日記を表示する権限がありません。");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, DiaryConstants.DIARY_FORBIDDEN);
         }
         return createDiaryShowResponseDto(diary, diaryUser.getFirstName(), diaryUser.getLastName(), roleName);
     }
@@ -135,16 +137,29 @@ public class DiaryService {
                 .anyMatch(h -> h.getHospital().getId().equals(hospitalUser.getHospital().getId()));
     }
     
-    private DiaryShowResponseDto createDiaryShowResponseDto(Diary diary, String firstName, String lastName, String roleName) {
+    private DiaryShowResponseDto createDiaryShowResponseDto(Diary diary, String firstName, String lastName,
+            String roleName) {
         return new DiaryShowResponseDto(
-            diary.getId(),
-            diary.getMoodScore(),
-            diary.getGoodContents(),
-            diary.getContents(),
-            diary.getCreatedAt(),
-            firstName,
-            lastName,
-            roleName
-        );
+                diary.getId(),
+                diary.getMoodScore(),
+                diary.getGoodContents(),
+                diary.getContents(),
+                diary.getCreatedAt(),
+                firstName,
+                lastName,
+                roleName);
+    }
+    
+    public DiaryDestroyResponseDto destroyDiary(UUID diaryId) {
+        User user = userService.authUser();
+        String roleName = user.getRole() != null ? user.getRole().getName() : null;
+        Diary diary = diaryRepository.findDiaryById(diaryId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, DiaryConstants.DIARY_NOT_FOUND));
+
+        if (!(roleService.isSystemAdminRole(roleName))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, DiaryConstants.DIARY_FORBIDDEN);
+        }
+        diaryRepository.delete(diary);
+        return new DiaryDestroyResponseDto("対象の日記を削除しました。");
     }
 }
