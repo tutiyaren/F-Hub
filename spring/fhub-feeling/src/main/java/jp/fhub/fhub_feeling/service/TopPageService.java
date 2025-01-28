@@ -1,8 +1,11 @@
 package jp.fhub.fhub_feeling.service;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
+
 import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
 import jp.fhub.fhub_feeling.dto.responsedto.TopPageResponseDto;
@@ -50,12 +53,18 @@ public class TopPageService {
 
         if (roleService.isHospitalAdminRole(roleName)) {
             List<UUID> hospitalIds = roleService.getHospitalIds(user);
-            if (hospitalIds.isEmpty()) {
-                return Collections.emptyList();
-            }
 
-            List<Diary> diaries = diaryRepository.findTop3ByUser_HospitalUsers_Hospital_IdOrderByCreatedAtDesc(hospitalIds.get(0));
-            return diaries.stream().map(TopPageResponseDto::fromEntity).toList();
+            List<Diary> hospitalUserDiaries = diaryRepository.findTop3ByUserOrderByCreatedAtDesc(user);
+            if (hospitalIds.isEmpty()) {
+                return hospitalUserDiaries.stream().map(TopPageResponseDto::fromEntity).toList();
+            }
+            List<Diary> hospitalDiaries = diaryRepository
+                    .findTop3ByUser_HospitalUsers_Hospital_IdOrderByCreatedAtDesc(hospitalIds.get(0));
+            List<Diary> combinedDiaries = Stream.concat(hospitalUserDiaries.stream(), hospitalDiaries.stream())
+                    .sorted(Comparator.comparing(Diary::getCreatedAt).reversed())
+                    .toList();
+
+            return combinedDiaries.stream().map(TopPageResponseDto::fromEntity).toList();
         }
         
         if (roleService.isSystemAdminRole(roleName)) {

@@ -2,11 +2,13 @@ package jp.fhub.fhub_feeling.service;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Stream;
+
 import org.springframework.stereotype.Service;
-import jakarta.servlet.http.HttpServletRequest;
 import jp.fhub.fhub_feeling.constant.DiaryConstants;
 import jp.fhub.fhub_feeling.dto.requestdto.DiaryRequestDto;
 import jp.fhub.fhub_feeling.dto.responsedto.DiaryDestroyResponseDto;
@@ -17,47 +19,31 @@ import jp.fhub.fhub_feeling.entity.HospitalUser;
 import jp.fhub.fhub_feeling.entity.User;
 import jp.fhub.fhub_feeling.repository.DiaryRepository;
 import jp.fhub.fhub_feeling.repository.HospitalUserRepository;
-import jp.fhub.fhub_feeling.repository.UserRepository;
-import jp.fhub.fhub_feeling.util.JwtUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class DiaryService {
 
-    private final JwtUtil jwtUtil;
-    private final UserRepository userRepository;
     private final DiaryRepository diaryRepository;
     private final HospitalUserRepository hospitalUserRepository;
     private final RoleService roleService;
     private final UserService userService;
-    private final CustomUserDetailsService customUserDetailsService;
 
     public DiaryService(
-        JwtUtil jwtUtil,
-        UserRepository userRepository,
         DiaryRepository diaryRepository,
         HospitalUserRepository hospitalUserRepository,
         RoleService roleService,
-        UserService userService,
-        CustomUserDetailsService customUserDetailsService
+        UserService userService
     ) {
-        this.jwtUtil = jwtUtil;
-        this.userRepository = userRepository;
         this.diaryRepository = diaryRepository;
         this.hospitalUserRepository = hospitalUserRepository;
         this.roleService = roleService;
         this.userService = userService;
-        this.customUserDetailsService = customUserDetailsService;
     }
 
-    public List<DiaryResponseDto> getDiaryList(HttpServletRequest request) {
-        String token = customUserDetailsService.getLogunUserTokenHeader(request);
-        String email = jwtUtil.validateTokenAndRetrieveSubject(token);
-
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));
-            
+    public List<DiaryResponseDto> getDiaryList() {
+        User user = userService.authUser();
         String roleName = user.getRole() != null ? user.getRole().getName() : null;
 
         if (roleService.isUserRole(roleName)) {
@@ -67,12 +53,17 @@ public class DiaryService {
 
         if (roleService.isHospitalAdminRole(roleName)) {
             List<UUID> hospitalIds = roleService.getHospitalIds(user);
+        
+            List<Diary> hospitalUserDiaries = diaryRepository.findByUserOrderByCreatedAtDesc(user);
             if (hospitalIds.isEmpty()) {
-                return Collections.emptyList();
+                return hospitalUserDiaries.stream().map(DiaryResponseDto::fromEntity).toList();
             }
+            List<Diary> hospitalDiaries = diaryRepository.findByUser_hospitalUsers_Hospital_IdOrderByCreatedAtDesc(hospitalIds.get(0));
+            List<Diary> combinedDiaries = Stream.concat(hospitalUserDiaries.stream(), hospitalDiaries.stream())
+                    .sorted(Comparator.comparing(Diary::getCreatedAt).reversed())
+                    .toList();
 
-            List<Diary> diaries = diaryRepository.findByUser_hospitalUsers_Hospital_IdOrderByCreatedAtDesc(hospitalIds.get(0));
-            return diaries.stream().map(DiaryResponseDto::fromEntity).toList();
+            return combinedDiaries.stream().map(DiaryResponseDto::fromEntity).toList();
         }
 
         if (roleService.isSystemAdminRole(roleName)) {
@@ -126,17 +117,20 @@ public class DiaryService {
 
     private DiaryShowResponseDto checkHospitalAdminAccess(User user, Diary diary, User diaryUser, String roleName) {
         Optional<HospitalUser> hospitalUser = hospitalUserRepository.findByUserId(user.getId());
+        if (diaryUser.getId().equals(user.getId())) {
+            return createDiaryShowResponseDto(diary, diaryUser.getFirstName(), diaryUser.getLastName(), roleName);
+        }
         if (hospitalUser.isEmpty() || !isUserInHospital(diary.getUser(), hospitalUser.get())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, DiaryConstants.DIARY_FORBIDDEN);
         }
         return createDiaryShowResponseDto(diary, diaryUser.getFirstName(), diaryUser.getLastName(), roleName);
     }
-    
+
     public boolean isUserInHospital(User user, HospitalUser hospitalUser) {
         return user.getHospitalUsers().stream()
                 .anyMatch(h -> h.getHospital().getId().equals(hospitalUser.getHospital().getId()));
     }
-    
+
     private DiaryShowResponseDto createDiaryShowResponseDto(Diary diary, String firstName, String lastName,
             String roleName) {
         return new DiaryShowResponseDto(
@@ -149,7 +143,7 @@ public class DiaryService {
                 lastName,
                 roleName);
     }
-    
+
     public DiaryDestroyResponseDto destroyDiary(UUID diaryId) {
         User user = userService.authUser();
         String roleName = user.getRole() != null ? user.getRole().getName() : null;

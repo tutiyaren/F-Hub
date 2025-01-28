@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jp.fhub.fhub_feeling.dto.requestdto.DiaryRequestDto;
 import jp.fhub.fhub_feeling.dto.responsedto.DiaryDestroyResponseDto;
@@ -42,8 +41,8 @@ public class DiaryController {
     }
     
     @GetMapping("")
-    public ResponseEntity<List<DiaryResponseDto>> list(HttpServletRequest request) {
-        List<DiaryResponseDto> diaryResponseDto = diaryService.getDiaryList(request);
+    public ResponseEntity<List<DiaryResponseDto>> list() {
+        List<DiaryResponseDto> diaryResponseDto = diaryService.getDiaryList();
         return ResponseEntity.ok().body(diaryResponseDto);
 
     }
