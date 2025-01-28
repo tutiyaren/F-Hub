@@ -17,4 +17,5 @@ public class DiaryShowResponseDto {
     private LocalDateTime createdAt;
     private String userFirstName;
     private String userLastName;
+    private String roleName;
 }

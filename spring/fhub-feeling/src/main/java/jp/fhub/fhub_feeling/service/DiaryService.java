@@ -102,32 +102,32 @@ public class DiaryService {
         User diaryUser = diary.getUser();
 
         if (roleService.isUserRole(roleName)) {
-            return checkUserAccess(user, diary);
+            return checkUserAccess(user, diary, roleName);
         }
 
         if (roleService.isHospitalAdminRole(roleName)) {
-            return checkHospitalAdminAccess(user, diary, diaryUser);
+            return checkHospitalAdminAccess(user, diary, diaryUser, roleName);
         }
 
         if (roleService.isSystemAdminRole(roleName)) {
-            return createDiaryShowResponseDto(diary, diaryUser.getFirstName(), diaryUser.getLastName());
+            return createDiaryShowResponseDto(diary, diaryUser.getFirstName(), diaryUser.getLastName(), roleName);
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "対象の日記が存在しません");
     }
 
-    private DiaryShowResponseDto checkUserAccess(User user, Diary diary) {
+    private DiaryShowResponseDto checkUserAccess(User user, Diary diary, String roleName) {
         if (!diary.getUser().getId().equals(user.getId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "この日記を表示する権限がありません。");
         }
-        return createDiaryShowResponseDto(diary, null, null);
+        return createDiaryShowResponseDto(diary, null, null, roleName);
     }
 
-    private DiaryShowResponseDto checkHospitalAdminAccess(User user, Diary diary, User diaryUser) {
+    private DiaryShowResponseDto checkHospitalAdminAccess(User user, Diary diary, User diaryUser, String roleName) {
         Optional<HospitalUser> hospitalUser = hospitalUserRepository.findByUserId(user.getId());
         if (hospitalUser.isEmpty() || !isUserInHospital(diary.getUser(), hospitalUser.get())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "この日記を表示する権限がありません。");
         }
-        return createDiaryShowResponseDto(diary, diaryUser.getFirstName(), diaryUser.getLastName());
+        return createDiaryShowResponseDto(diary, diaryUser.getFirstName(), diaryUser.getLastName(), roleName);
     }
     
     public boolean isUserInHospital(User user, HospitalUser hospitalUser) {
@@ -135,7 +135,7 @@ public class DiaryService {
                 .anyMatch(h -> h.getHospital().getId().equals(hospitalUser.getHospital().getId()));
     }
     
-    private DiaryShowResponseDto createDiaryShowResponseDto(Diary diary, String firstName, String lastName) {
+    private DiaryShowResponseDto createDiaryShowResponseDto(Diary diary, String firstName, String lastName, String roleName) {
         return new DiaryShowResponseDto(
             diary.getId(),
             diary.getMoodScore(),
@@ -143,6 +143,8 @@ public class DiaryService {
             diary.getContents(),
             diary.getCreatedAt(),
             firstName,
-            lastName);
+            lastName,
+            roleName
+        );
     }
 }
