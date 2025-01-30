@@ -44,7 +44,6 @@ public class DiaryController {
     public ResponseEntity<List<DiaryResponseDto>> list() {
         List<DiaryResponseDto> diaryResponseDto = diaryService.getDiaryList();
         return ResponseEntity.ok().body(diaryResponseDto);
-
     }
 
     @PostMapping("")
