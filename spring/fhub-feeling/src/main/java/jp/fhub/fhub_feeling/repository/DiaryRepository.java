@@ -1,5 +1,6 @@
 package jp.fhub.fhub_feeling.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,4 +18,10 @@ public interface DiaryRepository extends JpaRepository<Diary, UUID> {
     List<Diary> findByOrderByCreatedAtDesc();
     
     Optional<Diary> findDiaryById(UUID id);
+
+    List<Diary> findTop3ByUserIdOrderByCreatedAtDesc(UUID id);
+    int countByUserId(UUID id);
+    List<LocalDate> findAllDatesByUserId(UUID userId);
+
+
 }
