@@ -7,4 +7,6 @@ import jp.fhub.fhub_feeling.entity.HospitalUser;
 
 public interface HospitalUserRepository extends JpaRepository<HospitalUser, UUID> {
     Optional<HospitalUser> findByUserId(UUID id);
+
+    Optional<HospitalUser> findHospitalByUserId(UUID id);
 }

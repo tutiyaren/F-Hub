@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<User, UUID>{
 
     List<User> findByHospitalUsers_Hospital_IdOrderByCreatedAtDesc(UUID hospitalId);
     List<User> findAllByOrderByCreatedAtDesc();
+    
+    Optional<User> findUserById(UUID id);
 }
